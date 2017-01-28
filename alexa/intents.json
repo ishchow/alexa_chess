@@ -1,9 +1,9 @@
 {
     "intents": [{
-        "intent": "YesIntent"
+        "intent": "LaunchIntent_Yes"
     },
 
     {
-        "intent": "NoIntent"
+        "intent": "LaunchIntent_No"
     }]
 }

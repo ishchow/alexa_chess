@@ -1,5 +1,5 @@
-YesIntent yes
-YesIntent sure
+LaunchIntent_Yes yes
+LaunchIntent_Yes sure
 
-NoIntent no
-NoIntent go away
+LaunchIntent_No no
+LaunchIntent_No go away
