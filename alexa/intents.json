@@ -1,0 +1,9 @@
+{
+    "intents": [{
+        "intent": "YesIntent"
+    },
+
+    {
+        "intent": "NoIntent"
+    }]
+}
