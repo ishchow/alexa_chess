@@ -5,5 +5,39 @@
 
     {
         "intent": "LaunchIntent_No"
+    },
+
+    {
+        "intent": "GetFirstMove",
+        "slots": [
+        {
+          "name": "Source",
+          "type": "BOARD_ID"
+        },
+        {
+          "name": "Destination",
+          "type": "BOARD_ID"
+        }
+      ]
+    },
+
+    {
+        "intent": "GetNextMove"
+    },
+
+    {
+        "intent": "AMAZON.StopIntent"
+    },
+
+    {
+        "intent": "AMAZON.CancelIntent"
     }]
 }
+
+
+
+Intent syntax:
+{
+    "intent": "",
+    "slots": []
+},

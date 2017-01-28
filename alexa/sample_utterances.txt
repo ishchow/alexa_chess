@@ -3,3 +3,6 @@ LaunchIntent_Yes sure
 
 LaunchIntent_No no
 LaunchIntent_No go away
+
+GetFirstMove {Source} to {Destination}
+GetFirstMove {Source} {Destination}
