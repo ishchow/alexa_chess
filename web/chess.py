@@ -1,5 +1,51 @@
 from itertools import product
 
+class Board:
+    """The game board.
+
+    Contains information about:
+        locations of chess pieces
+        state of the game
+        number of active pieces
+
+    x-axis: a-h
+    y-axis: 1-8
+
+    """
+
+    def __init__(self):
+        self.board = {(x,y):None for x in range(8) for y in range(8)}
+        self.pieceCount = 32
+        self.currentPlayer = "white"
+
+    def DisplayBoard(self):
+        print(self.board)
+
+    def GetPieceCount(self):
+        print(self.pieceCount)
+
+    def GetCurrentPlayer(self):
+        return self.currentPlayer
+
+    def ChangePlayer(self):
+        if self.currentPlayer == "white":
+            self.currentPlayer = "black"
+        elif self.currentPlayer == "black":
+            self.currentPlayer = "white"
+        else:
+            print("I don't know who's turn it is")
+
+    """Move Piece.
+
+    Moves a piece from one location to another
+
+    Parameters:
+        piece: the chess piece to move
+        loc: the current location of the chess piece
+        dest: the destination to move to
+
+    """
+
 class chesspiece(object):
     horizontal = [(a,0) for a in range(-7,8)]
     horizontal.remove((0,0))
