@@ -1,0 +1,9 @@
+{
+    "intents": [{
+        "intent": "LaunchIntent_Yes"
+    },
+
+    {
+        "intent": "LaunchIntent_No"
+    }]
+}
