@@ -159,7 +159,7 @@ class chesspiece(object):
         self.color = color
 
 class king(chesspiece):
-    king.piecetype = 'king'
+    #king.piecetype = 'king'
     def legalmoves():
         kingmoves = [(a,b) for a,b in product(range(-1,2),repeat = 2)]
         kingmoves.remove((0,0))
@@ -167,27 +167,27 @@ class king(chesspiece):
         return kingmoves+castlemove
 
 class queen(chesspiece):
-    queen.piecetype = 'queen'
+    #queen.piecetype = 'queen'
     def legalmoves(self):
         return horizontal+vertical+diagonal1+diagonal2
 
 class bishop(chesspiece):
-    bishop.piecetype = 'bishop'
+    #bishop.piecetype = 'bishop'
     def legalmoves(self):
         return diagonal1+diagonal2
 
 class knight(chesspiece):
-    knight.piecetype = 'knight'
+    #knight.piecetype = 'knight'
     def legalmoves(self):
         return [(-1,2), (1,2), (2,1), (2,-1), (-2,1), (-2,1), (1,-2), (-1,-2)]
 
 class rook(chesspiece):
-    rook.piecetype = 'rook'
+    #rook.piecetype = 'rook'
     def legalmoves(self):
         return self.horizontal+self.vertical
 
 class pawn(chesspiece):
-    pawn.piecetype = 'pawn'
+    #pawn.piecetype = 'pawn'
     def legalmoves(self):
         if self.color == "white":
             return [(0,1),(0,2),(-1,1),(1,1)]
