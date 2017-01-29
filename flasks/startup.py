@@ -23,19 +23,34 @@ def start():
                 parsedboard[str(key)] = '&#9823;'
             continue
         if gameboard.board[key].piecetype == 'king':
-            parsedboard[str(key)] = 'k'
+            if gameboard.board[key].color == 'white':
+                parsedboard[str(key)] = '&#9812;'
+            else:
+                parsedboard[str(key)] = '&#9818;'
             continue
         if gameboard.board[key].piecetype == 'queen':
-            parsedboard[str(key)] = 'q'
+            if gameboard.board[key].color == 'white':
+                parsedboard[str(key)] = '&#9813;'
+            else:
+                parsedboard[str(key)] = '&#9819;'
             continue
         if gameboard.board[key].piecetype == 'bishop':
-            parsedboard[str(key)] = 'b'
+            if gameboard.board[key].color == 'white':
+                parsedboard[str(key)] = '&#9815;'
+            else:
+                parsedboard[str(key)] = '&#9821;'
             continue
         if gameboard.board[key].piecetype == 'knight':
-            parsedboard[str(key)] = 'n'
+            if gameboard.board[key].color == 'white':
+                parsedboard[str(key)] = '&#9816;'
+            else:
+                parsedboard[str(key)] = '&#9822;'
             continue
         if gameboard.board[key].piecetype == 'rook':
-            parsedboard[str(key)] = 'r'
+            if gameboard.board[key].color == 'white':
+                parsedboard[str(key)] = '&#9814;'
+            else:
+                parsedboard[str(key)] = '&#9820;'
             continue
     jsond = json.dumps(parsedboard)
     return render_template('chess.html', title='Alexa Chess', testboard=jsond)
