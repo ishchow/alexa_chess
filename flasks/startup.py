@@ -9,7 +9,7 @@ app = Flask(__name__)
 parsedboard = {}
 chessgame = game.rungame()
 chessboard = game.Board()
-def
+
 
 def update():
     for key in chessboard.board:
@@ -59,15 +59,23 @@ def update():
 
 @app.route('/')
 def initialize():
-    chessboard = Board()
-    update()
+    chessboard = game.Board()
+    return update()
 
-@app.route('/waiting/')
-def waiting():
-    source, dest = alexaInput().split()
+@app.route('/waitformove/')
+def waitformove():
+    return update()
+    #source, dest = alexa.Input().split()
 
-@app.route('/checking/')
-    move(x1, y1, x2, y2):
-    update()
-    def gotowait():
-        return redirect(url_for('waiting'))
+@app.route('/checkmove/')
+def checkmove():
+    # chessboard.move(x1, y1, x2, y2, chessgame)
+    return "ended"
+    if chessboard.win():
+        return "someone won"
+    else:
+        return redirect(url_for('waitformove'))
+
+@app.route('/gameover/')
+def restart():
+    return 'ok' #new template

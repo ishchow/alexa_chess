@@ -6,7 +6,6 @@
 <script>
 function update(tb) {
     elem = document.getElementById('board');
-    //elem.rows[i].cells[j].innerHTML = tb[0];
     for(key in tb){
         var tuple = key.replace(/[() ]/g, '');
         var tuple = tuple.split(",");
@@ -14,9 +13,6 @@ function update(tb) {
         var y = tuple[1];
         elem.rows[7-y].cells[x].innerHTML = tb[key];
     }
-
-
-
 
 }
 </script>
@@ -45,8 +41,10 @@ function update(tb) {
 
     </style>
 </head>
-<button type="button" onclick="update({{testboard}})">help</button>
+
+<!-- <button type="button" onclick="update({{testboard}})">help</button> -->
 <body style="font-size:60px;">
+
     <table align="center" id = "board">
         <tr>
             <td>&nbsp;</th>
@@ -129,5 +127,7 @@ function update(tb) {
             <td>&nbsp;</th>
         </tr>
     </table>
+    <script>update({{testboard}})</script>
 </body>
+
 </html>
