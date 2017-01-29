@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import render_template
 import json
-import classdef as game
+import sys
+sys.path.append('/home/cmput274/kdehaan/Python/alexa_chess/web')
+import chess as game
 
 
 
@@ -52,5 +54,5 @@ def start():
             else:
                 parsedboard[str(key)] = '&#9820;'
             continue
-    jsond = json.dumps(parsedboard)
-    return render_template('chess.html', title='Alexa Chess', testboard=jsond)
+    jsondump = json.dumps(parsedboard)
+    return render_template('chess.html', title='Alexa Chess', testboard=jsondump)
