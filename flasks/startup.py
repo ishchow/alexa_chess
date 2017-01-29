@@ -31,14 +31,15 @@ def initialize():
 
 @app.route('/send/', methods=['POST'])
 def sendDict():
-    # j = request.get_json(force=True)
-    # s1, s2, d1, d2 = [int(x) for x in j[u'move'].split()]
-    s1, s2, d1, d2 = [int(x) for x in raw_input("imput: ").split()]
+    if request.is_json:
+        j = request.get_json(force=True)
+        s1, s2, d1, d2 = [int(x) for x in j[u'move'].split()]
+        print(s1, s2, d1, d2)
+        chessboard.Move((s1, s2-1), (d1, d2-1), chessgame)
+    # s1, s2, d1, d2 = [int(x) for x in raw_input("imput: ").split()]
+    # s1, s2, d1, d2 = 1, 1, 1, 2
 
 
-    print(s1, s2, d1, d2)
-
-    chessboard.Move((s1, s2), (d1, d2), chessgame)
     return jsonify(dict = update(chessboard))
 
 def update(chessboard):

@@ -42,17 +42,16 @@ pa = [
     'golf 7', 'golf 8', 'hotel 1', 'hotel 2', 'hotel 3',
     'hotel 4', 'hotel 5', 'hotel 6', 'hotel 7', 'hotel 8']
 
-def change_player():
-    if (session.attributes["curr_player"] == "White"):
-        session.attributes["curr_player"] = "Black"
-    else:
-        session.attributes["curr_player"] = "White"
-    print(session.attributes["curr_player"])
+# def change_player():
+#     if (session.attributes["curr_player"] == "White"):
+#         session.attributes["curr_player"] = "Black"
+#     else:
+#         session.attributes["curr_player"] = "White"
+#     print(session.attributes["curr_player"])
 
 def get_prompt():
     print("In get_prompt()")
-    print(session.attributes["curr_player"])
-    player_prompt = "{} Player, what is your move?".format(session.attributes["curr_player"])
+    player_prompt = "Player, what is your move?"
 
     return player_prompt
 
@@ -78,14 +77,13 @@ def parse(Source, Destination):
     print res.text
 
 # www.website.com/
-@app.route('/')
+@app.route('/alexa')
 def homepage():
     return "LET'S WIN HACKED 2017!!!!!"
 
 @ask.launch
 def launch():
     print("We've launched chess!")
-    session.attributes["curr_player"] = "White"
     session.attributes["board_id"] = {b_id:None for b_id in board_id}
     session.attributes["pa"] = {pa_ch:None for pa_ch in pa}
     launch_prompt = "Starting game..."
@@ -126,7 +124,7 @@ def get_move(Source, Destination):
 
     # Execute Current Player Move
     move_confirmation = "{} to {}".format(Source, Destination)
-    card_title = "{} Player move".format(session.attributes["curr_player"])
+    card_title = "Player move"
     card_out = move_confirmation
 
     # Get Next Player's Move
