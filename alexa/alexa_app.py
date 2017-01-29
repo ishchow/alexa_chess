@@ -3,10 +3,12 @@ from flask_ask import Ask, request, statement, question, session
 import json
 import requests
 import time
-import unidecode
+from unidecode import unidecode
+import logging
 
 app = Flask(__name__)
 ask = Ask(app, "/")
+logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 
 curr_player = 0
 
@@ -20,24 +22,33 @@ def launch():
     global curr_player
     player_prompt = "Player {}, what is your move".format(curr_player + 1)
     curr_player = (curr_player + 1) % 1
+    print("We've launched chess!")
     return question(player_prompt).reprompt(player_prompt)
 
-@ask.intent("GetFirstMove",
-            mapping={'Source':'src', 'Destination':'dest'},
-            convert={'src':'str', 'dest':'str'}
-            )
-def get_first_move(src, dest):
-    print(type(src))
-    print(src, dest)
-    msg = "Move successful"
-    statement(msg)
+@ask.intent("GetFirstMove")
+def get_first_move(Source, Destination):
+    """ Gets first move from play
 
-@ask.intent("GetNextMove",
-            mapping={'Source':'src', 'Destination':'dest'})
-def get_next_move(src, dest):
-    print(src, dest)
-    msg = "Move successful"
-    statement(msg)
+    Args:
+        Source (unicode): from where player is moving chess piece
+        Destination (unicode): to where player is moving chess piece
+
+    Returns:
+        Statement: Alexa repeats your move
+    """
+    print("First Move")
+    Source = unidecode(Source)
+    Destination = unidecode(Destination)
+    msg = "{} to {}".format(Source, Destination)
+    return statement(msg)
+
+@ask.intent("GetNextMove")
+def get_first_move(Source, Destination):
+    print("First Move")
+    Source = unidecode(Source)
+    Destination = unidecode(Destination)
+    msg = "{} to {}".format(Source, Destination)
+    return statement(msg)
 
 @ask.intent("LaunchIntent_No")
 def fbomb_mlhstye():

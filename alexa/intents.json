@@ -12,17 +12,31 @@
         "slots": [
         {
           "name": "Source",
-          "type": "BOARD_ID"
+          "type": "BOARD_ID",
+          "value": "?"
         },
         {
           "name": "Destination",
-          "type": "BOARD_ID"
+          "type": "BOARD_ID",
+          "value": "?"
         }
       ]
     },
 
     {
-        "intent": "GetNextMove"
+        "intent": "GetNextMove",
+        "slots": [
+        {
+          "name": "Source",
+          "type": "BOARD_ID",
+          "value": "?"
+        },
+        {
+          "name": "Destination",
+          "type": "BOARD_ID",
+          "value": "?"
+        }
+      ]
     },
 
     {
