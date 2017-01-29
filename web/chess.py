@@ -1,4 +1,3 @@
-#newone
 from itertools import product
 
 class Board:
@@ -247,12 +246,12 @@ class Board:
 
     def SearchForChecks(self, whiteloc, blackloc, color):
         if color == "white": #white turn see if white is in checkmate
-            self.whiteKingCheck = self.Check(whiteloc, color)
+            self.whiteKingCheck = self.Check(whiteloc, game.currentPlayer)
             if self.whiteKingCheck:
                 print("white king in check")
-        else:
+        elif color == "black":
 #             print('testingtesting123')
-            self.blackKingCheck = self.Check(blackloc, color)
+            self.blackKingCheck = self.Check(blackloc, game.currentPlayer)
 #             print('testingtesting321')
             if self.blackKingCheck:
                 print("black king in check")
