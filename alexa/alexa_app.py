@@ -21,6 +21,21 @@ board_id = [
     'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8'
 ]
 
+pa = [
+    'alpha 1', 'alpha 2', 'alpha 3', 'alpha 4',
+    'alpha 5', 'alpha 6', 'alpha 7', 'alpha 8', 'bravo 1',
+    'bravo 2', 'bravo 3', 'bravo 4', 'bravo 5', 'bravo 6',
+    'bravo 7', 'bravo 8', 'charlie 1', 'charlie 2', 'charlie 3',
+    'charlie 4', 'charlie 5', 'charlie 6', 'charlie 7', 'charlie 8',
+    'delta 1', 'delta 2', 'delta 3', 'delta 4', 'delta 5',
+    'delta 6', 'delta 7', 'delta 8', 'echo 1', 'echo 2',
+    'echo 3', 'echo 4', 'echo 5', 'echo 6', 'echo 7',
+    'echo 8', 'foxtrot 1', 'foxtrot 2', 'foxtrot 3', 'foxtrot 4',
+    'foxtrot 5', 'foxtrot 6', 'foxtrot 7', 'foxtrot 8', 'golf 1',
+    'golf 2', 'golf 3', 'golf 4', 'golf 5', 'golf 6',
+    'golf 7', 'golf 8', 'hotel 1', 'hotel 2', 'hotel 3',
+    'hotel 4', 'hotel 5', 'hotel 6', 'hotel 7', 'hotel 8']
+
 def change_player():
     if (session.attributes["curr_player"] == "White"):
         session.attributes["curr_player"] = "Black"
@@ -35,6 +50,19 @@ def get_prompt():
 
     return player_prompt
 
+def parse(Source, Destination):
+    if (Source in session.attributes["pa"]):
+        pa_ch, num = Source.split().lower()
+        s = s[0] + num
+    else:
+        s = Source.lower()
+
+    if (Destination in session.attributes["pa"]):
+        pa_ch, num = Destination.split().lower()
+        d = d[0] + num
+    else:
+        d = Destination.lower()
+
 # www.website.com/
 @app.route('/')
 def homepage():
@@ -45,6 +73,7 @@ def launch():
     print("We've launched chess!")
     session.attributes["curr_player"] = "White"
     session.attributes["board_id"] = {b_id:None for b_id in board_id}
+    session.attributes["pa"] = {pa_ch:None for pa_ch in pa}
     launch_prompt = "Starting game..."
     move_prompt = get_prompt()
     speech_output = launch_prompt + move_prompt
@@ -64,14 +93,21 @@ def get_move(Source, Destination):
     """
     print("Move Intent")
 
-    if (Source not in session.attributes["board_id"]) \
-    or (Destination not in session.attributes["board_id"]):
+    if Source is None or Destination is None:
+        print("Error! Try Again!")
         return question(get_prompt())
-    print("Error! Try Again!")
 
     Source = unidecode(Source)
     Destination = unidecode(Destination)
 
+    if (Source not in session.attributes["board_id"]) \
+    or (Source not in session.attributes["pa"]) \
+    or (Destination not in session.attributes["board_id"]) \
+    or (Destination not in session.attributes["pa"]):
+        print("Error! Try Again!")
+        return question(get_prompt())
+
+    print(Source, ", ", Destination)
 
     # Execute Current Player Move
     move_confirmation = "{} to {}".format(Source, Destination)
