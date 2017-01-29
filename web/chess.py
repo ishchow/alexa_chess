@@ -17,6 +17,37 @@ class Board:
         self.board = {(x,y):None for x in range(8) for y in range(8)}
         self.pieceCount = 32
         self.currentPlayer = "white"
+        DisplayBoard()
+
+
+    # Returns empty spaces
+    def GetOpenPositions(self):
+        pass
+
+
+    def SpawnPawns(self):
+        for x in range(8):
+              self.board[(x, 1)] = pawn('white')
+        self.Board[(1, 0)] = knight('white')
+        self.Board[(6,0)] = knight('white')
+        self.Board[(0,0)] = rook('white')
+        self.Board[(7,0)] = rook('white')
+        self.Board[(2,0)] = bishop('white')
+        self.Board[(5,0)] = bishop('white')
+        self.Board[(4,0)] = king('white')
+        self.Board[(3,0)] = queen('white')
+
+        for x in range(8):
+              self.board[(x, 6)] = pawn('black')
+        self.Board[(1, 7)] = knight('black')
+        self.Board[(6,7)] = knight('black')
+        self.Board[(0,7)] = rook('black')
+        self.Board[(7,7)] = rook('black')
+        self.Board[(2,7)] = bishop('black')
+        self.Board[(5,7)] = bishop('black')
+        self.Board[(4,7)] = king('black')
+        self.Board[(3,7)] = queen('black')
+
 
     def DisplayBoard(self):
         print(self.board)
@@ -34,17 +65,6 @@ class Board:
             self.currentPlayer = "white"
         else:
             print("I don't know who's turn it is")
-
-    """Move Piece.
-
-    Moves a piece from one location to another
-
-    Parameters:
-        piece: the chess piece to move
-        loc: the current location of the chess piece
-        dest: the destination to move to
-
-    """
 
 class chesspiece(object):
     horizontal = [(a,0) for a in range(-7,8)]
@@ -76,7 +96,7 @@ class bishop(chesspiece):
 
 class knight(chesspiece):
     def legalmoves():
-        return [(a,b) for a,b in product(range(-7,8),repeat = 2)]
+        return [(-1,2), (1,2), (2,1), (2,-1), (-2,1), (-2,1), (1,-2), (-1,-2)]
 
 class rook(chesspiece):
     def legalmoves():
@@ -86,9 +106,33 @@ class pawn(chesspiece):
     def legalmoves():
         return [(0,1),(0,2),(-1,1),(1,1)]
 
-class rungame(Board):
+class rungame():
     def __init__(self):
-        Board.__init__(self)
+        gameBoard = Board()
     def getinput(self):
         print('enter a location and destination as tuples:')
         playermove = input()
+
+        """Move Piece
+
+        Moves a piece from one location to another
+
+        Parameters:
+            piece: the chess piece to move
+            loc: the current location of the chess piece
+            dest: the destination to move to
+
+        """
+    def Move(self, loc, dest):
+        piece = self.board[loc] # the piece object to move
+        legalMoves = piece.legalmoves()
+        if self.board[dest] != None:
+            print("invalid move ya dingus")
+            return None
+        attemptedMove = (dest[0]-loc[0],dest[1]-loc[1])
+        if attemptedMove not in legalMoves:
+            print('didnt work')
+        else:
+            print(piece)
+            self.board[dest] = piece
+            self.board[loc] = None
