@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+
+<script>
+function update(tb) {
+    elem = document.getElementById('board');
+    //elem.rows[i].cells[j].innerHTML = tb[0];
+    for(key in tb){
+        var tuple = key.replace(/[() ]/g, '');
+        var tuple = tuple.split(",");
+        var x = tuple[0];
+        var y = tuple[1];
+        elem.rows[7-y].cells[x].innerHTML = tb[key];
+    }
+
+function restart(game):
+    game.reset()
+}
+</script>
+
+
+    <head>
+
+      <form id = 'loginForm' method='put'>
+    		<p>
+    			<input type='submit' name='move' value ='Return to Menu' />
+    		</p>
+      </form>
+
+      <p id="demo"></p>
+=======
+<head>
+>>>>>>> ce0363a877ce21cf9624bb977c15510a77220ae9
+
+=======
+<head>
+>>>>>>> de6e0b35afd577580f7a50c2342ceeb8d5a7e98b
+    <style>
+        table {
+        border-collapse: collapse;
+        border: 1px solid #000000;
+        }
+        th, td {
+        width:80px;
+        height:80px;
+        border-collapse: collapse;
+    	}
+    	th, td {
+        padding: 5px;
+        text-align: center;
+    	}
+        tr:nth-child(even) td:nth-child(odd),
+        tr:nth-child(odd) td:nth-child(even) {
+        background-color: #bbbbbb;
+    	}
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            setInterval("refreshboard()", 4000);
+        });
+		function refreshboard() {
+			$.post('/send/',
+				{b: localStorage.getItem('dict')},
+				function(json) {
+					dict = json.dict;
+                    elem = document.getElementById('board');
+                    for(key in dict){
+                        var tuple = key.replace(/[() ]/g, '');
+                        var tuple = tuple.split(",");
+                        var x = tuple[0];
+                        var y = tuple[1];
+                        elem.rows[7-y].cells[x].innerHTML = dict[key];
+                    }
+				}).then(function() {
+                    setTimeout(update, 1000);
+                });
+		};
+
+	</script>
+
+</head>
+<<<<<<< HEAD
+<button type="button" onclick="restart({{game}})">Restart</button>
+<button type="button" onclick="update({{testboard}})">help</button>
+<body style="font-size:60px;">
+    <table id = "board">
+=======
+
+<body style="font-size:60px;">
+    <script>refreshboard()</script>
+    <table align="center" id = "board">
+>>>>>>> ce0363a877ce21cf9624bb977c15510a77220ae9
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+    </table>
+    <!-- <script>update({{testboard}})</script> -->
+</body>
+
+</html>

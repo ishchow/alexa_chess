@@ -1,0 +1,34 @@
+{
+    "intents": [{
+        "intent": "MoveIntent",
+        "slots": [
+        {
+          "name": "Source",
+          "type": "BOARD_ID",
+          "value": "?"
+        },
+        {
+          "name": "Destination",
+          "type": "BOARD_ID",
+          "value": "?"
+        }
+      ]
+    },
+
+    {
+        "intent": "AMAZON.StopIntent"
+    },
+
+    {
+        "intent": "AMAZON.CancelIntent"
+    }]
+}
+
+
+
+
+Intent syntax:
+{
+    "intent": "",
+    "slots": []
+},
