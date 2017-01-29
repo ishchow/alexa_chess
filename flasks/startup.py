@@ -55,4 +55,4 @@ def start():
                 parsedboard[str(key)] = '&#9820;'
             continue
     jsondump = json.dumps(parsedboard)
-    return render_template('chess.html', title='Alexa Chess', testboard=jsondump)
+return render_template('chess.html', title='Alexa Chess', testboard=jsondump)
