@@ -15,9 +15,8 @@ function update(tb) {
         elem.rows[7-y].cells[x].innerHTML = tb[key];
     }
 
-
-
-
+function restart(game):
+    game.reset()
 }
 </script>
 
@@ -31,20 +30,6 @@ function update(tb) {
       </form>
 
       <p id="demo"></p>
-
-      <script>
-      function loadDoc() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("demo").innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("POST", "moves.asp", true);
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("fname=Henry&lname=Foreeddrd");
-    }
-      </script>
 
     <style>
     table {
@@ -67,6 +52,7 @@ function update(tb) {
 
     </style>
 </head>
+<button type="button" onclick="restart({{game}})">Restart</button>
 <button type="button" onclick="update({{testboard}})">help</button>
 <body style="font-size:60px;">
     <table id = "board">
