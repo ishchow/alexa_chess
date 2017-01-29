@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<script>
+function update(tb) {
+    elem = document.getElementById('board');
+    //elem.rows[i].cells[j].innerHTML = tb[0];
+    for(key in tb){
+        var tuple = key.replace(/[() ]/g, '');
+        var tuple = tuple.split(",");
+        var x = tuple[0];
+        var y = tuple[1];
+        elem.rows[7-y].cells[x].innerHTML = tb[key];
+    }
+
+    //
+    // tboard}};
+
+
+
+
+}
+</script>
+
+
+<head>
+
+    <style>
+    table {
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    }
+    th, td {
+    width:80px;
+    height:80px;
+    border-collapse: collapse;
+	}
+	th, td {
+    padding: 5px;
+    text-align: center;
+	}
+    tr:nth-child(even) td:nth-child(odd),
+    tr:nth-child(odd) td:nth-child(even) {
+    background-color: #bbbbbb;
+	}
+
+    </style>
+</head>
+<button type="button" onclick="update({{testboard}})">help</button>
+<body style="font-size:60px;">
+    <table id = "board">
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+            <td>&nbsp;</th>
+        </tr>
+    </table>
+</body>
+</html>
