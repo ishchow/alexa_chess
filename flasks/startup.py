@@ -56,3 +56,8 @@ def start():
             continue
     jsondump = json.dumps(parsedboard)
 return render_template('chess.html', title='Alexa Chess', testboard=jsondump)
+
+@app.route('/restart/')
+def restart():
+    game.reset()
+    start()
