@@ -84,6 +84,7 @@ class Board:
                 if self.board[checkblock[i]] != None:
                     print('blocked')
                     return None
+                    #ada
         #updown
         if attemptedMove[0] == 0 and attemptedMove[1] != 0 and piece.piecetype == 'rook' or 'queen':
             bot = min(loc[1],dest[1])
