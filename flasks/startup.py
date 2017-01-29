@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 import json
 import sys
-sys.path.append('/home/cmput274/kdehaan/Python/alexa_chess/web')
+import os
+cwd = os.getcwd()
+cwd = cwd[:-6]
+cwd += 'web/'
+
+sys.path.append(cwd)
 import chess as game
 
 
