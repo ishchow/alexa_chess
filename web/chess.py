@@ -85,3 +85,10 @@ class rook(chesspiece):
 class pawn(chesspiece):
     def legalmoves():
         return [(0,1),(0,2),(-1,1),(1,1)]
+
+class rungame(Board):
+    def __init__(self):
+        Board.__init__(self)
+    def getinput(self):
+        print('enter a location and destination as tuples:')
+        playermove = input()
