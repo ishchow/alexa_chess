@@ -10,13 +10,10 @@ function update(tb) {
     for(key in tb){
         var tuple = key.replace(/[() ]/g, '');
         var tuple = tuple.split(",");
-        var x = split[0];
-        var y = split[1];
+        var x = tuple[0];
+        var y = tuple[1];
         elem.rows[7-y].cells[x].innerHTML = tb[key];
     }
-
-    //
-    // tboard}};
 
 
 
