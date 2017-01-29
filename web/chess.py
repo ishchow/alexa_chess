@@ -17,6 +17,10 @@ class Board:
         self.blackPieces = 16
         self.SpawnAll()
         self.DisplayBoard()
+        self.BKingcanCastleL = True
+        self.WKingcanCastleL = True
+        self.BKingcanCastleR = True
+        self.WKingcanCastleR = True
 
     def SpawnAll(self):
         for x in range(8):
@@ -84,6 +88,39 @@ class Board:
 
         legalMoves = piece.legalmoves() # a list of all possible movement vectors
         attemptedMove = (dest[0]-loc[0],dest[1]-loc[1])
+
+        if (piece.piecetype == 'king') and (self.WKingcanCastleL == True):
+            if (attemptedMove == (2,0)) and \
+            ((self.board[(5,0)] and self.board[(6,0)]) == None) and \
+            (self.board[(7,0)] == 'rook'):
+                self.board[dest] = piece
+                self.board[loc] = None
+                self.board[5,0] = 'rook'
+                self.board[7,0] = None
+        if (piece.piecetype == 'king') and (self.WKingcanCastleR == True):
+            if (attemptedMove == (-2,0)) and \
+            ((self.board[(1,0)] and self.board[(2,0)] and self.board[(3,0)]) == None) and \
+            (self.board[(0,0)] == 'rook'):
+                self.board[dest] = piece
+                self.board[loc] = None
+                self.board[3,0] = 'rook'
+                self.board[0,0] = None
+        if (piece.piecetype == 'king') and (self.BKingcanCastleL == True):
+            if (attemptedMove == (2,0)) and \
+            ((self.board[(5,7)] and self.board[(6,7)]) == None) and \
+            (self.board[(7,7)] == 'rook'):
+                self.board[dest] = piece
+                self.board[loc] = None
+                self.board[5,7] = 'rook'
+                self.board[7,7] = None
+        if (piece.piecetype == 'king') and (self.BKingcanCastleR == True):
+            if (attemptedMove == (-2,0)) and \
+            ((self.board[(1,7)] and self.board[(2,7)] and self.board[(3,7)]) == None) and \
+            (self.board[(0,7)] == 'rook'):
+                self.board[dest] = piece
+                self.board[loc] = None
+                self.board[3,7] = 'rook'
+                self.board[0,7] = None
 
         if piece.piecetype == 'pawn':
             if (attemptedMove[0] != 0) and (self.board[dest] == None):
@@ -167,6 +204,22 @@ class Board:
             print(piece)
             self.board[dest] = piece
             self.board[loc] = None
+            if piece.piecetype == 'king':
+                if piece.color == 'black':
+                    self.BKingcanCastleL = False
+                    self.BKingcanCastleR = False
+                else:
+                    self.WKingcanCastleL = False
+                    self.WKingcanCastleR = False
+            if piece.piecetype == 'rook':
+                if loc == (7,0):
+                    self.WKingcanCastleL = False
+                if loc == (0,0):
+                    self.WKingcanCastleR = False
+                if loc == (7,7):
+                    self.BKingcanCastleL = False
+                if loc == (0,7):
+                    self.BKingcanCastleR = False
             if piece.piecetype == 'pawn':
                 self.promotion(dest,game)
             game.ChangePlayer()
