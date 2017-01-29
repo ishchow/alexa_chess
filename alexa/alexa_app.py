@@ -66,7 +66,7 @@ def get_move(Source, Destination):
 
     if (Source not in session.attributes["board_id"]) \
     or (Destination not in session.attributes["board_id"]):
-    return question(get_prompt())
+        return question(get_prompt())
     print("Error! Try Again!")
 
     Source = unidecode(Source)
