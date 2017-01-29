@@ -10,7 +10,22 @@ app = Flask(__name__)
 ask = Ask(app, "/")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 
-curr_player = 0
+def change_player():
+    if (session.attributes["curr_player"] == "White"):
+        session.attributes["curr_player"] = "Black"
+    else:
+        session.attributes["curr_player"] = "White"
+
+def get_prompt():
+    print("In get_prompt()")
+    if "curr_player" not in session.attributes:
+        session.attributes["curr_player"] = "White"
+    print(session.attributes["curr_player"])
+    player_prompt = "{} Player, what is your move?".format(session.attributes["curr_player"])
+    change_player()
+    print(session.attributes["curr_player"])
+
+    return player_prompt
 
 # www.website.com/
 @app.route('/')
@@ -19,15 +34,15 @@ def homepage():
 
 @ask.launch
 def launch():
-    global curr_player
-    player_prompt = "Player {}, what is your move".format(curr_player + 1)
-    curr_player = (curr_player + 1) % 1
     print("We've launched chess!")
-    return question(player_prompt).reprompt(player_prompt)
+    launch_prompt = "Starting game..."
+    move_prompt = get_prompt()
+    speech_output = launch_prompt + move_prompt
+    return question(speech_output).reprompt(move_prompt)
 
-@ask.intent("GetFirstMove")
-def get_first_move(Source, Destination):
-    """ Gets first move from play
+@ask.intent("MoveIntent")
+def get_move(Source, Destination):
+    """ Gets previous move from one player and asks for next move of second player
 
     Args:
         Source (unicode): from where player is moving chess piece
@@ -36,24 +51,13 @@ def get_first_move(Source, Destination):
     Returns:
         Statement: Alexa repeats your move
     """
-    print("First Move")
+    print("Move Intent")
     Source = unidecode(Source)
     Destination = unidecode(Destination)
-    msg = "{} to {}".format(Source, Destination)
-    return statement(msg)
-
-@ask.intent("GetNextMove")
-def get_first_move(Source, Destination):
-    print("First Move")
-    Source = unidecode(Source)
-    Destination = unidecode(Destination)
-    msg = "{} to {}".format(Source, Destination)
-    return statement(msg)
-
-@ask.intent("LaunchIntent_No")
-def fbomb_mlhstye():
-    msg = "Your lame, cool people play chess!!!!"
-    return statement(msg)
+    move_confirmation = "{} to {}".format(Source, Destination)
+    move_prompt = get_prompt()
+    speech_output = move_confirmation + move_prompt
+    return question(speech_output).reprompt(move_prompt)
 
 @ask.intent('AMAZON.StopIntent')
 def stop():
@@ -65,8 +69,6 @@ def cancel():
 
 @ask.session_ended
 def session_ended():
-    global curr_player
-    curr_player = 0
     return "", 200
 
 if __name__ == "__main__":
