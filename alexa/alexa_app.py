@@ -10,13 +10,19 @@ app = Flask(__name__)
 ask = Ask(app, "/")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 
+def change_player():
+    if (session.attributes["curr_player"] == "White"):
+        session.attributes["curr_player"] = "Black"
+    else:
+        session.attributes["curr_player"] = "White"
+
 def get_prompt():
     print("In get_prompt()")
     if "curr_player" not in session.attributes:
-        session.attributes["curr_player"] = 0
+        session.attributes["curr_player"] = "White"
     print(session.attributes["curr_player"])
-    player_prompt = "Player {}, what is your move".format(session.attributes["curr_player"] + 1)
-    session.attributes["curr_player"] = (session.attributes["curr_player"] + 1) % 1
+    player_prompt = "{} Player, what is your move?".format(session.attributes["curr_player"])
+    change_player()
     print(session.attributes["curr_player"])
 
     return player_prompt
@@ -29,8 +35,10 @@ def homepage():
 @ask.launch
 def launch():
     print("We've launched chess!")
+    launch_prompt = "Starting game..."
     move_prompt = get_prompt()
-    return question(move_prompt).reprompt(move_prompt)
+    speech_output = launch_prompt + move_prompt
+    return question(speech_output).reprompt(move_prompt)
 
 @ask.intent("MoveIntent")
 def get_move(Source, Destination):
