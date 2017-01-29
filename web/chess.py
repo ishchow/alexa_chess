@@ -136,12 +136,13 @@ class Board:
                     print(self.whitePieces)
                     game.CurrentPlayer = "white"
                 self.board[loc] = None
+                print("Its now %s turn" % (game.CurrentPlayer))
 
         else:
             print(piece)
             self.board[dest] = piece
             self.board[loc] = None
-            print("Its now ")
+            print("Its now %s turn" % (game.CurrentPlayer))
 
 
 class chesspiece(object):
@@ -188,7 +189,10 @@ class rook(chesspiece):
 class pawn(chesspiece):
     pawn.piecetype = 'pawn'
     def legalmoves(self):
-        return [(0,1),(0,2),(-1,1),(1,1)]
+        if self.color == "white":
+            return [(0,1),(0,2),(-1,1),(1,1)]
+        elif self.color == "black":
+            return [(0,-1),(0,-2),(-1,-1),(1,-1)]
 
 
 class rungame():
