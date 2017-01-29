@@ -1,35 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-
-<script>
-function update(tb) {
-    elem = document.getElementById('board');
-    //elem.rows[i].cells[j].innerHTML = tb[0];
-    for(key in tb){
-        var tuple = key.replace(/[() ]/g, '');
-        var tuple = tuple.split(",");
-        var x = tuple[0];
-        var y = tuple[1];
-        elem.rows[7-y].cells[x].innerHTML = tb[key];
-    }
-}
-function restart(game){
-    game.reset()
-}
-</script>
-
-
-    <head>
-
-      <form id = 'loginForm' method='put'>
-    		<p>
-    			<input type='submit' name='move' value ='Return to Menu' />
-    		</p>
-      </form>
-
-      <p id="demo"></p>
-
 <head>
     <style>
         table {
@@ -76,11 +47,6 @@ function restart(game){
 	</script>
 
 </head>
-
-<button type="button" onclick="restart({{game}})">Restart</button>
-<button type="button" onclick="update({{testboard}})">help</button>
-<body style="font-size:60px;">
-    <table id = "board">
 
 <body style="font-size:60px;">
     <script>refreshboard()</script>
