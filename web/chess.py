@@ -47,6 +47,19 @@ class Board:
     def GetPieceCount(self):
         print(self.pieceCount)
 
+    def promotion(self, dest, game):
+        piece = self.board[dest]
+        if piece.color == 'black' and dest[1] == 7:
+            print('pawn promotion! choose a piece to promote to\
+            (knight, bishop, rook, queen): ')
+            piece.piecetype = input()
+            return None
+        if piece.color == 'white' and dest[1] == 0:
+            print('pawn promotion! choose a piece to promote to\
+            (knight, bishop, rook, queen): ')
+            piece.piecetype = input()
+            return None
+
     """
     Moves a piece from one location to another
     Parameters:
@@ -76,26 +89,27 @@ class Board:
             print("Not a legal move")
             return None
         #leftright
-        if attemptedMove[0] != 0 and attemptedMove[1] == 0 and piece.piecetype == 'rook' or 'queen':
+        if (attemptedMove[0] != 0 and attemptedMove[1]) == 0 and (piece.piecetype == ('rook' or 'queen')):
             left = min(loc[0],dest[0])
             right = max(loc[0],dest[0])
             checkblock = [(a,loc[1]) for a in range(left,right)]
             for i in range(len(checkblock)):
                 if self.board[checkblock[i]] != None:
-                    print('blocked')
+                    print('blocked1')
                     return None
                     #ada
         #updown
-        if attemptedMove[0] == 0 and attemptedMove[1] != 0 and piece.piecetype == 'rook' or 'queen':
+        print(piece.piecetype)
+        if (attemptedMove[0] == 0 and attemptedMove[1] != 0) and (piece.piecetype == ('rook' or 'queen')):
             bot = min(loc[1],dest[1])
             top = max(loc[1],dest[1])
             checkblock = [(loc[0],a) for a in range(bot,top)]
             for i in range(len(checkblock)):
                 if self.board[checkblock[i]] != None:
-                    print('blocked')
+                    print('blocked2')
                     return None
         #diagonal
-        if attemptedMove[0] == attemptedMove[1] and piece.piecetype == 'bishop' or 'queen':
+        if (attemptedMove[0] == attemptedMove[1]) and (piece.piecetype == ('bishop' or 'queen')):
             botleftx = min(loc[0],dest[0])
             botlefty = min(loc[1],dest[1])
             toprightx = max(loc[0],dest[0])
@@ -104,9 +118,9 @@ class Board:
                 checkblock += [(botleftx+j,botlefty+j)]
             for i in range(len(checkblock)):
                 if self.board[checkblock[i]] != None:
-                    print('blocked')
+                    print('blocked3')
                     return None
-        if attemptedMove[0] == -(attemptedMove[1]) and piece.piecetype == 'bishop' or 'queen':
+        if (attemptedMove[0] == -(attemptedMove[1])) and (piece.piecetype == ('bishop' or 'queen')):
             topleftx = min(loc[0],dest[0])
             toplefty = max(loc[1],dest[1])
             botrightx = max(loc[0],dest[0])
@@ -115,7 +129,7 @@ class Board:
                 checkblock += [(topleftx+j,toplefty-j)]
             for i in range(len(checkblock)):
                 if self.board[checkblock[i]] != None:
-                    print('blocked')
+                    print('blocked4')
                     return None
 
         if self.board[dest] != None:
@@ -136,13 +150,15 @@ class Board:
                     print(self.whitePieces)
                     game.CurrentPlayer = "white"
                 self.board[loc] = None
-                print("Its now %s turn" % (game.CurrentPlayer))
+                print("Its now %s turn" % (game.currentPlayer))
 
         else:
             print(piece)
             self.board[dest] = piece
             self.board[loc] = None
-            print("Its now %s turn" % (game.CurrentPlayer))
+            if piece.piecetype == 'pawn':
+                self.promotion(dest,game)
+            print("Its now %s turn" % (game.currentPlayer))
 
 
 class chesspiece(object):
@@ -159,7 +175,7 @@ class chesspiece(object):
         self.color = color
 
 class king(chesspiece):
-    king.piecetype = 'king'
+    # king.piecetype = 'king'
     def legalmoves():
         kingmoves = [(a,b) for a,b in product(range(-1,2),repeat = 2)]
         kingmoves.remove((0,0))
@@ -167,27 +183,27 @@ class king(chesspiece):
         return kingmoves+castlemove
 
 class queen(chesspiece):
-    queen.piecetype = 'queen'
+    # queen.piecetype = 'queen'
     def legalmoves(self):
         return horizontal+vertical+diagonal1+diagonal2
 
 class bishop(chesspiece):
-    bishop.piecetype = 'bishop'
+    # bishop.piecetype = 'bishop'
     def legalmoves(self):
         return diagonal1+diagonal2
 
 class knight(chesspiece):
-    knight.piecetype = 'knight'
+    # knight.piecetype = 'knight'
     def legalmoves(self):
         return [(-1,2), (1,2), (2,1), (2,-1), (-2,1), (-2,1), (1,-2), (-1,-2)]
 
 class rook(chesspiece):
-    rook.piecetype = 'rook'
+    # rook.piecetype = 'rook'
     def legalmoves(self):
         return self.horizontal+self.vertical
 
 class pawn(chesspiece):
-    pawn.piecetype = 'pawn'
+    # pawn.piecetype = 'pawn'
     def legalmoves(self):
         if self.color == "white":
             return [(0,1),(0,2),(-1,1),(1,1)]
@@ -197,7 +213,7 @@ class pawn(chesspiece):
 
 class rungame():
     def __init__(self):
-        self.gameBoard = Board()
+        self.gameboardinstance = Board()
         self.currentPlayer = "white"
 
     def GetCurrentPlayer(self):
