@@ -64,6 +64,50 @@ class Board:
             piece.piecetype = input()
             return None
 
+    def blocking(self, potentialmove, loc, dest):
+        #leftright
+        if (potentialmove[0] != 0 and potentialmove[1]) == 0 and (piece.piecetype == ('rook' or 'queen')):
+            left = min(loc[0],dest[0])
+            right = max(loc[0],dest[0])
+            checkblock = [(a,loc[1]) for a in range(left,right)]
+            for i in range(len(checkblock)):
+                if self.board[checkblock[i]] != None:
+                    print('blocked1')
+                    return None
+        #updown
+        print(piece.piecetype)
+        if (potentialmove[0] == 0 and potentialmove[1] != 0) and (piece.piecetype == ('rook' or 'queen')):
+            bot = min(loc[1],dest[1])
+            top = max(loc[1],dest[1])
+            checkblock = [(loc[0],a) for a in range(bot,top)]
+            for i in range(len(checkblock)):
+                if self.board[checkblock[i]] != None:
+                    print('blocked2')
+                    return None
+        #diagonal
+        if (potentialmove[0] == potentialmove[1]) and (piece.piecetype == ('bishop' or 'queen')):
+            botleftx = min(loc[0],dest[0])
+            botlefty = min(loc[1],dest[1])
+            toprightx = max(loc[0],dest[0])
+            toprighty = max(loc[1],dest[1])
+            for j in range(abs(potentialmove[0])):
+                checkblock += [(botleftx+j,botlefty+j)]
+            for i in range(len(checkblock)):
+                if self.board[checkblock[i]] != None:
+                    print('blocked3')
+                    return None
+        if (potentialmove[0] == -(potentialmove[1])) and (piece.piecetype == ('bishop' or 'queen')):
+            topleftx = min(loc[0],dest[0])
+            toplefty = max(loc[1],dest[1])
+            botrightx = max(loc[0],dest[0])
+            botrighty = min(loc[1],dest[1])
+            for j in range(abs(potentialmove[0])):
+                checkblock += [(topleftx+j,toplefty-j)]
+            for i in range(len(checkblock)):
+                if self.board[checkblock[i]] != None:
+                    print('blocked4')
+                    return None
+                    
     """
     Moves a piece from one location to another
     Parameters:
@@ -136,49 +180,8 @@ class Board:
         if attemptedMove not in legalMoves: # If the destination is not possible to move to
             print("Not a legal move")
             return None
-        #leftright
-        if (attemptedMove[0] != 0 and attemptedMove[1]) == 0 and (piece.piecetype == ('rook' or 'queen')):
-            left = min(loc[0],dest[0])
-            right = max(loc[0],dest[0])
-            checkblock = [(a,loc[1]) for a in range(left,right)]
-            for i in range(len(checkblock)):
-                if self.board[checkblock[i]] != None:
-                    print('blocked1')
-                    return None
-                    #ada
-        #updown
-        print(piece.piecetype)
-        if (attemptedMove[0] == 0 and attemptedMove[1] != 0) and (piece.piecetype == ('rook' or 'queen')):
-            bot = min(loc[1],dest[1])
-            top = max(loc[1],dest[1])
-            checkblock = [(loc[0],a) for a in range(bot,top)]
-            for i in range(len(checkblock)):
-                if self.board[checkblock[i]] != None:
-                    print('blocked2')
-                    return None
-        #diagonal
-        if (attemptedMove[0] == attemptedMove[1]) and (piece.piecetype == ('bishop' or 'queen')):
-            botleftx = min(loc[0],dest[0])
-            botlefty = min(loc[1],dest[1])
-            toprightx = max(loc[0],dest[0])
-            toprighty = max(loc[1],dest[1])
-            for j in range(abs(attemptedMove[0])):
-                checkblock += [(botleftx+j,botlefty+j)]
-            for i in range(len(checkblock)):
-                if self.board[checkblock[i]] != None:
-                    print('blocked3')
-                    return None
-        if (attemptedMove[0] == -(attemptedMove[1])) and (piece.piecetype == ('bishop' or 'queen')):
-            topleftx = min(loc[0],dest[0])
-            toplefty = max(loc[1],dest[1])
-            botrightx = max(loc[0],dest[0])
-            botrighty = min(loc[1],dest[1])
-            for j in range(abs(attemptedMove[0])):
-                checkblock += [(topleftx+j,toplefty-j)]
-            for i in range(len(checkblock)):
-                if self.board[checkblock[i]] != None:
-                    print('blocked4')
-                    return None
+
+        blocking(attemptedMove, loc, dest)
 
         if self.board[dest] != None:
             if self.board[dest].color == game.currentPlayer: # If you are moving to a space with your own unit
