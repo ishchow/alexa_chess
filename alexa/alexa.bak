@@ -1,10 +1,15 @@
 from flask import Flask
 from flask_ask import Ask, request, statement, question, session
+from flask_restful import Resource, Api, reqparse
 import json
-import requests
+from requests import get, put
 import time
 from unidecode import unidecode
 import logging
+
+# class HelloWorld(Resource):
+#     def get(self):
+#         return {'src': 'dest'}
 
 class Move(object):
     def __init__(self):
@@ -13,8 +18,11 @@ class Move(object):
 m = Move()
 
 app = Flask(__name__)
-ask = Ask(app, "/")
+ask = Ask(app, "/alexa")
+# api = Api(app)
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
+
+# api.add_resource(HelloWorld, '/api')
 
 board_id = [
     'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8',
@@ -70,12 +78,12 @@ def parse(Source, Destination):
     else:
         d = Destination.lower()
 
-    m.self = str(ord(s[0]) - ord('a')) + " " + str(ord(s[1]) - ord('0')) \
-                + " " + str(ord(d[0]) - ord('a')) + " " + str(ord(d[1]) - ord('0'))
+    m.self = (str(ord(s[0]) - ord('a')), str(ord(s[1]) - ord('0')),\
+                str(ord(d[0]) - ord('a')), str(ord(d[1]) - ord('0')))
     print(m.self)
-    d = {"move":m.self}
-    res = requests.post("http://127.0.0.1:5000/send/", json=d)
-    print res.text
+    d = {"src":"dest"}
+    # res = post("http://127.0.0.1:5000/send", json=d)
+
 
 # www.website.com/
 @app.route('/')
