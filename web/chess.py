@@ -85,6 +85,17 @@ class Board:
         legalMoves = piece.legalmoves() # a list of all possible movement vectors
         attemptedMove = (dest[0]-loc[0],dest[1]-loc[1])
 
+        if piece.piecetype == 'pawn':
+            if (attemptedMove[0] != 0) and (self.board[dest] == None):
+                print('pawns can only move diagonally if an enemy is there')
+                return None
+            if (attemptedMove == ((0,1) or (0,-1))) and (self.board[dest] != None):
+                print('pawns cannot kill things directly in front of them')
+                return None
+            if (attemptedMove == ((0,2) or (0,-2))) and (loc[1] != (1 or 6)):
+                print('pawns can move two spaces only their first move')
+                return None
+
         if attemptedMove not in legalMoves: # If the destination is not possible to move to
             print("Not a legal move")
             return None
@@ -150,7 +161,7 @@ class Board:
                     print(self.whitePieces)
                     game.CurrentPlayer = "white"
                 self.board[loc] = None
-                print("Its now %s turn" % (game.currentPlayer))
+                print("It is now %s\'s turn" % (game.currentPlayer))
 
         else:
             print(piece)
@@ -158,7 +169,8 @@ class Board:
             self.board[loc] = None
             if piece.piecetype == 'pawn':
                 self.promotion(dest,game)
-            print("Its now %s turn" % (game.currentPlayer))
+            game.ChangePlayer()
+            print("It is now %s\'s turn" % (game.currentPlayer))
 
 
 class chesspiece(object):
