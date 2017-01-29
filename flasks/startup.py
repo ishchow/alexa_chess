@@ -58,6 +58,14 @@ def update():
                 parsedboard[str(key)] = '&#9820;'
             continue
     jsondump = json.dumps(parsedboard)
+<<<<<<< HEAD
+return render_template('chess.html', title='Alexa Chess', testboard=jsondump)
+
+@app.route('/restart/')
+def restart():
+    game.reset()
+    start()
+=======
     return render_template('chess.html', title='Alexa Chess', testboard=jsondump)
 
 
@@ -84,3 +92,4 @@ def checkmove():
 @app.route('/gameover/')
 def restart():
     return 'ok' #new template
+>>>>>>> ce0363a877ce21cf9624bb977c15510a77220ae9
