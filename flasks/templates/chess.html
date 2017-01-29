@@ -2,6 +2,7 @@
 <html>
 
 
+<<<<<<< HEAD
 
 <script>
 function update(tb) {
@@ -30,6 +31,9 @@ function restart(game):
       </form>
 
       <p id="demo"></p>
+=======
+<head>
+>>>>>>> ce0363a877ce21cf9624bb977c15510a77220ae9
 
     <style>
     table {
@@ -51,11 +55,39 @@ function restart(game):
 	}
 
     </style>
+    <script>
+    function myFunction()
+    {
+       alert("Page is loaded");
+    }
+    </script>
+    <script>
+    function update(tb) {
+        elem = document.getElementById('board');
+        for(key in tb){
+            var tuple = key.replace(/[() ]/g, '');
+            var tuple = tuple.split(",");
+            var x = tuple[0];
+            var y = tuple[1];
+            elem.rows[7-y].cells[x].innerHTML = tb[key];
+        }
+
+    }
+    </script>
+
 </head>
+<<<<<<< HEAD
 <button type="button" onclick="restart({{game}})">Restart</button>
 <button type="button" onclick="update({{testboard}})">help</button>
 <body style="font-size:60px;">
     <table id = "board">
+=======
+
+
+<body style="font-size:60px;", onload="update({{testboard}})">
+
+    <table align="center" id = "board">
+>>>>>>> ce0363a877ce21cf9624bb977c15510a77220ae9
         <tr>
             <td>&nbsp;</th>
             <td>&nbsp;</th>
@@ -137,5 +169,7 @@ function restart(game):
             <td>&nbsp;</th>
         </tr>
     </table>
+    <script>update({{testboard}})</script>
 </body>
+
 </html>
