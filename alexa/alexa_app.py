@@ -6,6 +6,12 @@ import time
 from unidecode import unidecode
 import logging
 
+class Move(object):
+    def __init__(self):
+        self.move = tuple()
+
+m = Move()
+
 app = Flask(__name__)
 ask = Ask(app, "/")
 logging.getLogger('flask_ask').setLevel(logging.DEBUG)
@@ -51,17 +57,22 @@ def get_prompt():
     return player_prompt
 
 def parse(Source, Destination):
+    print("In parse")
     if (Source in session.attributes["pa"]):
-        pa_ch, num = Source.split().lower()
-        s = s[0] + num
+        pa_ch, num = Source.lower().split()
+        s = pa_ch[0] + num
     else:
         s = Source.lower()
 
     if (Destination in session.attributes["pa"]):
-        pa_ch, num = Destination.split().lower()
-        d = d[0] + num
+        pa_ch, num = Destination.lower().split()
+        d = pa_ch[0] + num
     else:
         d = Destination.lower()
+
+    m.self = (str(ord(s[0]) - ord('a')), str(ord(s[1]) - ord('0')),\
+                str(ord(d[0]) - ord('a')), str(ord(d[1]) - ord('0')))
+    print(m.self)
 
 # www.website.com/
 @app.route('/')
@@ -93,21 +104,22 @@ def get_move(Source, Destination):
     """
     print("Move Intent")
 
-    if Source is None or Destination is None:
-        print("Error! Try Again!")
-        return question(get_prompt())
+    # if Source is None or Destination is None:
+    #     print("Error! Try Again!")
+    #     return question(get_prompt())
+    #
+    # if (Source not in session.attributes["board_id"]) \
+    # or (Source not in session.attributes["pa"]) \
+    # or (Destination not in session.attributes["board_id"]) \
+    # or (Destination not in session.attributes["pa"]):
+    #     print("Error! Try Again!")
+    #     return question(get_prompt())
 
     Source = unidecode(Source)
     Destination = unidecode(Destination)
 
-    if (Source not in session.attributes["board_id"]) \
-    or (Source not in session.attributes["pa"]) \
-    or (Destination not in session.attributes["board_id"]) \
-    or (Destination not in session.attributes["pa"]):
-        print("Error! Try Again!")
-        return question(get_prompt())
-
     print(Source, ", ", Destination)
+    parse(Source, Destination)
 
     # Execute Current Player Move
     move_confirmation = "{} to {}".format(Source, Destination)
