@@ -250,7 +250,7 @@ class Board:
             self.whiteKingCheck = self.Check(whiteloc, color)
             if self.whiteKingCheck:
                 print("white king in check")
-        elif color == "black":
+        else:
 #             print('testingtesting123')
             self.blackKingCheck = self.Check(blackloc, color)
 #             print('testingtesting321')
