@@ -32,7 +32,7 @@ class Board:
         self.board[(2,0)] = bishop('bishop', 'white')
         self.board[(5,0)] = bishop('bishop', 'white')
         self.board[(4,0)] = king('king', 'white')
-        self.board[(3,0)] = queen('king', 'white')
+        self.board[(3,0)] = queen('queen', 'white')
         #spawn black pieces
         for x in range(8):
               self.board[(x, 6)] = pawn('pawn', 'black')
